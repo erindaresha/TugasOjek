@@ -6,15 +6,13 @@ import java.util.List;
 
 public interface DriverService {
 
-    Driver findByName(String name);
+    public abstract Driver getDriverById(Long id);
 
-    Driver findById(Long id);
+    public abstract List<Driver> listDrivers();
 
-    List<Driver> findAllDriver();
+    public abstract Driver updateDriver(Long id, String name, int balance);
 
-    Driver editDriver(Long id, String name);
+    public abstract Driver createDriver(String name, int balance);
 
-    Driver createDriver(String name, int balance);
-
-    void deleteDriver(Long id);
+    public abstract void deleteDriver(Long id);
 }

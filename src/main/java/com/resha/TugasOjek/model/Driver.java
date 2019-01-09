@@ -3,12 +3,11 @@ package com.resha.TugasOjek.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "drivers")
-public class Driver implements Serializable {
+@Table(name = "driver")
+public class Driver{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -19,6 +18,8 @@ public class Driver implements Serializable {
 
     @Column(name = "balance")
     private int balance;
+
+    public Driver(){}
 
     public Driver(String name, int balance){
         this.name = name;

@@ -14,30 +14,26 @@ public class DriverServiceImpl implements DriverService {
     DriverRepository driverRepository;
 
     @Override
-    public Driver findByName(String name) {
-        return driverRepository.findByName(name);
-    }
-
-    @Override
-    public Driver findById(Long id) {
-        return driverRepository.findById(id);
-    }
-
-    @Override
-    public List<Driver> findAllDriver(){
+    public List<Driver> listDrivers() {
         return driverRepository.findAll();
     }
 
     @Override
-    public  Driver editDriver(Long id, String name){
-        Driver driver = driverRepository.findById(id);
-        driver.setName(name);
-        return driverRepository.save(driver);
+    public Driver getDriverById(Long id) {
+        return driverRepository.findById(id);
     }
 
     @Override
     public Driver createDriver(String name, int balance) {
         Driver driver = new Driver(name, balance);
+        return driverRepository.save(driver);
+    }
+
+    @Override
+    public Driver updateDriver(Long id, String name, int balance) {
+        Driver driver = driverRepository.findById(id);
+        driver.setBalance(balance);
+        driver.setName(name);
         return driverRepository.save(driver);
     }
 

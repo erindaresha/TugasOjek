@@ -3,12 +3,11 @@ package com.resha.TugasOjek.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "user")
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -19,6 +18,8 @@ public class User implements Serializable {
 
     @Column(name = "balance")
     private int balance;
+
+    public User(){}
 
     public User(String name, int balance){
         this.name = name;

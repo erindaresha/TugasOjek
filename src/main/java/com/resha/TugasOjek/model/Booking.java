@@ -4,27 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "drivers")
-public class Booking implements Serializable {
+@Table(name = "booking")
+public class Booking{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "driver_id", nullable=false)
     @JsonIgnore
     private Driver driverId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable=false)
     @JsonIgnore
     private User userId;
+
+    @Column
+    private String lokasiAwal;
+
+    @Column
+    private String lokasiTujuan;
+
+    public enum Payment{
+        CASH, MBANKING, GOPAY
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment")
+    private Payment payment;
 
     @Column(name = "harga")
     private int harga;
@@ -38,6 +50,25 @@ public class Booking implements Serializable {
     private Status status;
 
     @Column(name = "tanggal")
-    private LocalDateTime tanggal;
+    private String tanggal;
+
+    public Booking(){}
+
+    public Booking(User user, Driver driver, String tanggal){
+        this.userId = user;
+        this.driverId = driver;
+        this.tanggal = tanggal;
+    }
+
+    public Booking(int harga, String tanggal, Driver driver, User user, Status status, Payment payment, String lokasiAwal, String lokasiTujuan){
+        this.harga = harga;
+        this.userId = user;
+        this.driverId = driver;
+        this.tanggal = tanggal;
+        this.status = status;
+        this.payment = payment;
+        this.lokasiAwal = lokasiAwal;
+        this.lokasiTujuan = lokasiTujuan;
+    }
 
 }
